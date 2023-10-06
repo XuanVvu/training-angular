@@ -1,0 +1,25 @@
+<header>
+  <div class="container">
+    <div class="header-top">
+      <div class="logo"></div>
+      <ul class="list-nav">
+        <li>Discover</li>
+        <li>Discover</li>
+        <li>Discover</li>
+        <li>Discover</li>
+      </ul>
+    </div>
+    <div class="header-bottom">
+      <div class="list-tab">
+        <ul *ngFor="let item of tabList">
+          <li>
+            <a [routerLink]="item.url">
+              {{ item.label }}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <app-search></app-search>
+    </div>
+  </div>
+</header>

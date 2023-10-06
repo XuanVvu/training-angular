@@ -1,0 +1,9 @@
+<div class="search-input">
+  <input
+    type="text"
+    placeholder="Search ..."
+    [(ngModel)]="inputValue"
+    (keyup.enter)="OnEnter()"
+  />
+  <!-- <input type="text" (change)="handleChangeInput($event)" [value]="data"> -->
+</div>

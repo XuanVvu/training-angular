@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="pt-5">
+        <div *ngIf="data$; else noResult">
+          <div class="row">
+            <div class="col-3 mb-3" *ngFor="let item of data$">
+              <app-card [content]="item" (click)="handleClick(item)"></app-card>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isLoading">
+          <app-loader></app-loader>
+        </div>
+        <ng-template #noResult>
+          <div *ngIf="!isLoading">
+            <p>Not found</p>
+          </div>
+        </ng-template>
+
+    </div>
+</div>

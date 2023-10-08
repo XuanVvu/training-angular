@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  filter,
-  finalize,
-  map,
-  Observable,
-  of,
-  shareReplay,
-  switchMap,
-} from 'rxjs';
+import { Observable, finalize, map, shareReplay } from 'rxjs';
 import { getProductsService } from '../api/get-products.service';
 import { CommonService } from '../shared/common.service';
 import { Product } from '../types/models';
@@ -22,21 +14,28 @@ import { ProductsService } from './products.service';
 export class ProductsComponent implements OnInit {
   data$: any[] | undefined;
   isLoading: boolean = true;
+  products: Observable<any> | any;
   constructor(
     private getProductsService: getProductsService,
-    private readonly commonService: CommonService,
+    private commonService: CommonService,
     private readonly router: Router,
     private productsService: ProductsService
   ) {}
 
   ngOnInit(): void {
-    this.getProductsService
-      .getAllProducts()
-      .subscribe((data) => (this.data$ = data));
-    if (this.productsService.data$) {
-      console.log(this.productsService.data$);
-    }
-
+    this.products = this.productsService.getAllProducts();
+    this.commonService.currentSearchTerm.subscribe((input: string) => {
+      this.products.pipe(
+        map((producs :any) =>
+          producs.filter((p: { title: string }) => {
+            if (!input) {
+              return producs;
+            }
+            return p.title.toLowerCase().includes(input.toLowerCase());
+          })
+        )
+      ).subscribe((data: any[] | undefined) => this.data$ = data);
+    });
   }
 
   handleClick(data: Product) {

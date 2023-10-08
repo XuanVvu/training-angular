@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { finalize, map, shareReplay } from 'rxjs';
+import { Observable, Subject, filter, finalize, map, of, shareReplay } from 'rxjs';
 import { getProductsService } from '../api/get-products.service';
 import { CommonService } from '../shared/common.service';
 
@@ -7,38 +7,31 @@ import { CommonService } from '../shared/common.service';
   providedIn: 'root',
 })
 export class ProductsService implements OnInit {
-  data$: any[] | undefined;
+  data$: Observable<any> | undefined;
   isLoading: boolean | undefined;
+  data1: Subject<any> = new Subject();
+  dataTest: any;
 
   constructor(
     private commonService: CommonService,
-    private productsService: getProductsService
+    private getProductsService: getProductsService
   ) {}
   ngOnInit(): void {
-    this.getAllProducts()
+    console.log(this.commonService.data);
   }
 
+  getAllProducts() {  
+    return this.getProductsService.getAllProducts().pipe(
+      finalize(() => this.isLoading = false),
+      shareReplay(1),
+    )
+ 
+       
+  }
 
-
-  getAllProducts() {
-    this.commonService.data?.subscribe((input) => {
-      this.productsService
-        .getAllProducts()
-        .pipe(
-          finalize(() => (this.isLoading = false)),
-          shareReplay(1),
-          map((product) =>
-            product.filter((p: { title: string }) => {
-              if (!input) {
-                return product;
-              }
-              return p.title.toLowerCase().startsWith(input.toLowerCase());
-            })
-          )
-        )
-        .subscribe((data) => (this.data$ = data));
-    });
-    this.commonService.data.next('');
-
+  getProductById(id: number) {
+    return this.getAllProducts().pipe(
+      map((product) => product.find((pr: { id: number; }) => pr.id === id))
+    )
   }
 }

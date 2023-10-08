@@ -14,6 +14,10 @@ export class HeaderComponent {
       label: 'Foods',
       url: '/foods',
     },
+    {
+      label: 'Todos',
+      url: '/todos',
+    },
   
   ];
 }

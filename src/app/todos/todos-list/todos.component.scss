@@ -1,0 +1,22 @@
+.content {
+    padding-top: 30px;
+    display: flex;
+    gap: 20px;
+
+    .add-button {
+        background-color: aqua;
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 50px;
+        outline: none;
+        cursor: pointer;
+
+    }
+
+}
+.list-todos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}

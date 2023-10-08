@@ -1,21 +1,24 @@
-import { Injectable, OnChanges, SimpleChanges } from '@angular/core';
-import { map, Observable, Subject } from 'rxjs';
+import { Injectable, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
 import { getProductsService } from '../api/get-products.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CommonService  {
-  searchName: string | undefined;
-  data: Subject<any> = new Subject();
-  dataObv: Observable<any> | undefined
+export class CommonService implements OnInit {
+  private searchName: string | undefined;
+  data: Subject<any> = new BehaviorSubject<string>('');
+  dataObv: Observable<any> | undefined;
+
+  currentSearchTerm = this.data.asObservable()
+  
   constructor() {}
-
-  dataTest(name:any) {
-    return name
-  }
-
+  ngOnInit(): void {
     
   }
 
-   
+  setSearchData(data: string): void {
+    
+    this.data.next(data)
+  }
+}

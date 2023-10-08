@@ -1,0 +1,9 @@
+<div class="search-input">
+    <input
+      type="text"
+      [placeholder]="mode === 'SEARCH_MODE' ? 'Search ...': 'Enter ....'"
+      [(ngModel)]="inputValue"
+      (input)="search(inputValue)"
+    />
+  </div>
+  

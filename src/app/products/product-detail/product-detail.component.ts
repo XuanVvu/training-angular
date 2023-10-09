@@ -33,7 +33,7 @@ export class ProductDetailComponent implements OnInit {
         switchMap((id) => this.productsService.getProductById(Number(id))
         ),
       )
-      .subscribe(data => this.product = data)
+      .subscribe(data =>this.product = data)
     
   }
 }

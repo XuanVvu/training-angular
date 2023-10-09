@@ -1,8 +1,33 @@
 .item-wrapper {
-    display: flex;
-    justify-content: space-between;
     background-color: #fff;
     width: 450px;
     border: 1px solid #ccc;
     padding: 10px;
+    .item-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .button {
+        display: flex;
+        gap: 20px;
+        .button-x {
+            width: 30px;
+            height: 30px;
+        }
+
+    }
+    .edit-popup {
+        padding-top: 20px;
+
+        .todo-name {
+            padding-right: 10px;
+        }
+
+        .todo-status{
+            padding-right: 47px;
+        }
+    }
+
 }

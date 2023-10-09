@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { TodosService } from '../todos.service';
 
 @Component({
@@ -6,27 +8,43 @@ import { TodosService } from '../todos.service';
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.scss'],
 })
-export class TodosListComponent implements OnInit {
+export class TodosListComponent implements OnInit, OnDestroy {
   inputTodo: string | undefined;
   todos: any[] | undefined;
-  constructor(private todosService: TodosService) {}
-  ngOnInit(): void {
-      this.todosService.todos$.subscribe((data) => this.todos = data)
-  }
+  todoForm: FormGroup | any;
+  sup= new Subscription()
 
-  data($event: any) {
-    this.inputTodo = $event;
+  constructor(private todosService: TodosService, private fb: FormBuilder) {}
+  ngOnDestroy(): void {
+    this.sup.unsubscribe();
+  }
+  ngOnInit(): void {
+    this.todoForm = this.fb.group({
+      todoInput: ['', Validators.compose([Validators.required])],
+    });
+    this.sup.add(
+      this.todosService.todos$.subscribe((data) => {
+        console.log(data);
+        this.todos?.push(data);
+      })
+    )
+
+    this.todosService.getData.subscribe((data)=>{
+      console.log(data);
+      
+      this.todos=data
+    })
+    
+    // this.todosService.todos$.next(1)
   }
 
   handleAddTodo() {
-    if(this.inputTodo) {
-      this.todosService.addTodos(this.inputTodo);
+    const input = this.todoForm.value.todoInput;
+    if (input) {
+      this.todosService.addTodos(input);
     }
-
-    if (this.todos) {
-      console.log(this.todos);
-
-    }
-
+    this.todoForm.patchValue({
+      todoInput: '',
+    });
   }
 }

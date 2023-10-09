@@ -1,1 +1,18 @@
-<p>todo-detail works!</p>
+<form action="">
+  <div class="container">
+    <div>
+      <label for="">Todo name: </label>
+      <input type="text" />
+    </div>
+    <div>
+      <label for="">Status</label>
+      <input type="checkbox" />
+    </div>
+
+    <Button>Save</Button>
+  </div>
+
+  <pre *ngIf="data">
+    {{ data | json }}
+  </pre>
+</form>

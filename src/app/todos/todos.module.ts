@@ -6,9 +6,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { todosRoutes } from './todos.routing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [TodosListComponent, TodoItemComponent, TodoDetailComponent],
-  imports: [CommonModule, RouterModule.forChild(todosRoutes), SharedModule],
+  imports: [CommonModule, RouterModule.forChild(todosRoutes), SharedModule, ReactiveFormsModule],
+  exports: [TodosListComponent]
 })
 export class TodosModule {}

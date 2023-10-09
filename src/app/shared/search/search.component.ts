@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CommonService } from '../common.service';
 
 @Component({
@@ -7,14 +8,18 @@ import { CommonService } from '../common.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  constructor( private readonly commonService:CommonService) {}
+  searchForm: FormGroup | any;
+  constructor( private readonly commonService:CommonService, private fb: FormBuilder) {}
+
   
   ngOnInit(): void {
-    
+    this.searchForm = this.fb.group({
+      searchInput: '',
+    });
   } 
 
-  search($event:any) {
-    this.commonService.setSearchData($event)     
+  search() {
+    this.commonService.setSearchData(this.searchForm.value.searchInput)     
        
   }  
 

@@ -1,5 +1,28 @@
 <div class="item-wrapper" *ngIf="data">
-    <p>{{data.id}}-- {{data.todo}}</p>
-    <button (click)="removeTodo()">X</button>
+  <div class="item-content">
+    <div>
+      <p>{{ data.id }} -- {{ data.todo }}</p>
+      <p>status: {{ data.status === false ? "Todo" : "Completed" }}</p>
+    </div>
+    <div class="button d-flex">
+      <button class="button-x" (click)="removeTodo()">X</button>
+      <button class="button-x" (click)="navigateEdit()">...</button>
+    </div>
+  </div>
+  <div *ngIf="modal" class="edit-popup">
+    <form [formGroup]="todoForm">
+      
+        <div>
+          <label for="" class="todo-name">Todo name: </label>
+          <input type="text" formControlName="todo" />
+        </div>
+        <div>
+          <label for="" class="todo-status">Status: </label>
+          <input type="checkbox" formControlName="status" />
+        </div>
 
+        <Button (click)="updateTodo()">Save</Button>
+     
+    </form>
+  </div>
 </div>

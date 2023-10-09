@@ -1,15 +1,15 @@
 <div class="container">
-    <div class="content">
-        <app-input-base mode="TODO_MODE" (data)="data($event)"></app-input-base>
-        <button class="add-button" (click)="handleAddTodo()">Add</button>
-    </div>
+  <div class="content">
+    <app-input-base mode="TODO_MODE" [formGroup]="todoForm"></app-input-base>
 
-    <ul *ngIf="todos">
-        <li class="list-todos" *ngFor="let todo of todos">
-            <app-todo-item [data]="todo"></app-todo-item>
-        </li>
-    </ul>
-
-
+    <button class="add-button" (click)="handleAddTodo()">Add</button>
+  </div>
+  <p *ngIf="todoForm.controls.todoInput.errors" class="error-text">
+    Enter something
+  </p>
+  <ul>
+    <li class="list-todos" *ngFor="let todo of todos">
+      <app-todo-item [data]="todo"></app-todo-item>
+    </li>
+  </ul>
 </div>
-

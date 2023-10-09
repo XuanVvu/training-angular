@@ -5,7 +5,7 @@ import { SearchComponent } from './search/search.component';
 import { LoaderComponent } from './loader/loader.component';
 import { RouterModule } from '@angular/router';
 import { CardComponent } from './card/card.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputBaseComponent } from './input-base/input-base.component';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { InputBaseComponent } from './input-base/input-base.component';
       CardComponent,
       InputBaseComponent,
     ],
-  imports: [CommonModule, RouterModule, FormsModule],
-  exports: [HeaderComponent, LoaderComponent, CardComponent,InputBaseComponent],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
+  exports: [HeaderComponent, LoaderComponent, CardComponent, InputBaseComponent],
 })
 export class SharedModule {}

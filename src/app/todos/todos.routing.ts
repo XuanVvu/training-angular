@@ -7,8 +7,14 @@ export const todosRoutes: Routes = [
     path: '',
     component: TodosListComponent,
   },
-  // {
-  //   path:':id',
-  //   component:TodoDetailComponent
-  // }
+  {
+    path:':id',
+    children: [
+      {
+        path: 'edit',
+        component: TodoDetailComponent
+
+      }
+    ]
+  }
 ];

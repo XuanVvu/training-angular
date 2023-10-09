@@ -1,9 +1,10 @@
-<div class="search-input">
+<form action="" [formGroup]="formGroup">
+  <div class="search-input d-flex">
     <input
+    class="input"
       type="text"
-      [placeholder]="mode === 'SEARCH_MODE' ? 'Search ...': 'Enter ....'"
-      [(ngModel)]="inputValue"
-      (input)="search(inputValue)"
+      formControlName="todoInput"
+      [placeholder]="mode === 'SEARCH_MODE' ? 'Search ...' : 'Enter ....'"
     />
   </div>
-  
+</form>

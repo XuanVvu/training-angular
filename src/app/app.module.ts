@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {SharedModule} from '../app/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { TodosModule } from './todos/todos.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
+    TodosModule
   ],
   
   providers: [],

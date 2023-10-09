@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-input-base',
@@ -7,12 +8,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class InputBaseComponent {
   @Input() mode: string | undefined;
-  @Output() data =  new EventEmitter<string>();
-
-  inputValue:string ='';  
-
-  search(data: string) {
-    this.data.emit(data)
-  }
+  @Input() formGroup: FormGroup | any
 
 }

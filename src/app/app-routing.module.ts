@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TodosListComponent } from './todos/todos-list/todos.component';
+import { TodosModule } from './todos/todos.module';
 
 const routes: Routes = [
   {
@@ -18,6 +20,7 @@ const routes: Routes = [
   {
     path: 'todos',
     loadChildren: () => import('./todos/todos.module').then(m => m.TodosModule)
+    // component: TodosListComponent,
   },
 
 ];

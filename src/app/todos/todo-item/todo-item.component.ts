@@ -14,7 +14,7 @@ export class TodoItemComponent {
 
   todoForm: FormGroup |any;
 
-  constructor(private todoService:TodosService, private fb: FormBuilder) {}
+  constructor(private todoService:TodosService, private fb: FormBuilder, private router: Router) {}
 
   removeTodo() {
     this.todoService.removeTodo(this.data.id);
@@ -26,6 +26,8 @@ export class TodoItemComponent {
       todo: this.data.todo,
       status: this.data.status
     })
+
+    // this.router.navigate(['todos', this.data.id,'edit'])
   }
 
   updateTodo() {

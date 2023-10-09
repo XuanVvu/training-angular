@@ -18,12 +18,11 @@ export class TodoDetailComponent implements OnInit {
     this.route.params
       .pipe(
         pluck('id'),
-        switchMap((id: number) => this.todosService.getTodoById(id)),
+        switchMap((id: number) => this.todosService.getTodoById(Number(id))),
         filter(todo => !!todo)
 
       )
-      .subscribe((todo) => this.data = todo);
+      .subscribe(console.log);
 
-      this.todosService.getTodoById(1).subscribe((todo) => this.data = todo)
   }
 }

@@ -8,34 +8,20 @@ import { TodosService } from '../todos.service';
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.scss'],
 })
-export class TodosListComponent implements OnInit, OnDestroy {
+export class TodosListComponent implements OnInit {
   inputTodo: string | undefined;
   todos: any[] | undefined;
   todoForm: FormGroup | any;
   sup= new Subscription()
 
   constructor(private todosService: TodosService, private fb: FormBuilder) {}
-  ngOnDestroy(): void {
-    this.sup.unsubscribe();
-  }
+
   ngOnInit(): void {
     this.todoForm = this.fb.group({
       todoInput: ['', Validators.compose([Validators.required])],
     });
-    this.sup.add(
-      this.todosService.todos$.subscribe((data) => {
-        console.log(data);
-        this.todos?.push(data);
-      })
-    )
+    this.todosService.todos$.subscribe((data) => this.todos = data)
 
-    this.todosService.getData.subscribe((data)=>{
-      console.log(data);
-      
-      this.todos=data
-    })
-    
-    // this.todosService.todos$.next(1)
   }
 
   handleAddTodo() {

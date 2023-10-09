@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -7,10 +7,10 @@ import { map, Observable, Subject } from 'rxjs';
 export class TodosService {
   private idCounter = 1;
   private todos: any[] = [];
-  private todosSubject: Subject<any> = new Subject();
+  private todosSubject: BehaviorSubject<any> = new BehaviorSubject([]);
 
   get todos$() {
-    return this.todosSubject;
+    return this.todosSubject.asObservable();
   }
 
   getTodoById(id: number) {
@@ -19,20 +19,14 @@ export class TodosService {
     );
   }
 
-   get getData() {
-    return new Observable<any[]>((sub) => {
-      sub.next([...this.todos])
-    })
-  }
-
   addTodos(todo: any) {
     const newTodo = {
       id: this.idCounter++,
       status: false,
       todo,
     };
-    this.todos.push(newTodo);
-    this.todosSubject.next(newTodo);
+    this.todos = [...this.todos, newTodo]
+    this.todosSubject.next(this.todos);
   }
 
   removeTodo(id: number) {

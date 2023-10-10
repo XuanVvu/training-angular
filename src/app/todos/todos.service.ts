@@ -20,9 +20,7 @@ export class TodosService {
   }
 
    get getData() {
-    return new Observable<any[]>((sub) => {
-      sub.next([...this.todos])
-    })
+    return [ ...this.todos]
   }
 
   addTodos(todo: any) {
@@ -32,7 +30,7 @@ export class TodosService {
       todo,
     };
     this.todos.push(newTodo);
-    this.todosSubject.next(newTodo);
+    this.todosSubject.next([...this.todos]);
   }
 
   removeTodo(id: number) {

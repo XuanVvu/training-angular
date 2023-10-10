@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { TodosService } from '../todos.service';
 
 @Component({
@@ -14,28 +14,28 @@ export class TodosListComponent implements OnInit, OnDestroy {
   todoForm: FormGroup | any;
   sup= new Subscription()
 
+  obsData: Observable<any> | any;
+
   constructor(private todosService: TodosService, private fb: FormBuilder) {}
   ngOnDestroy(): void {
-    this.sup.unsubscribe();
+    this.obsData.unsubscribe();
   }
   ngOnInit(): void {
     this.todoForm = this.fb.group({
       todoInput: ['', Validators.compose([Validators.required])],
     });
-    this.sup.add(
-      this.todosService.todos$.subscribe((data) => {
-        console.log(data);
-        this.todos?.push(data);
-      })
-    )
 
-    this.todosService.getData.subscribe((data)=>{
+    this.obsData = this.todosService.todos$.subscribe((data)=>{
       console.log(data);
       
       this.todos=data
     })
+
+    console.log('-----');
     
-    // this.todosService.todos$.next(1)
+    
+    this.todosService.todos$.next(this.todosService.getData)
+    
   }
 
   handleAddTodo() {
